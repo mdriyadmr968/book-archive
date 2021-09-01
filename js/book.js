@@ -1,31 +1,45 @@
-document.getElementById("error-message").style.display = "none";
-
 const searchBook = () => {
   const searchField = document.getElementById("search-text");
   const searchText = searchField.value;
   // console.log(searchText);
   searchField.value = "";
-  document.getElementById("error-message").style.display = "none";
   if (searchText == "") {
-    //code for if here
+    let error = document.getElementById("error-message");
+    error.classList.add(
+      "alert",
+      "alert-danger",
+      "text-center",
+      "fs-5",
+      "w-25",
+      "mx-auto"
+    );
+    error.innerHTML = "Please search something";
   } else {
-    const url = `http://openlibrary.org/search.json?q=${searchText}`;
+    const url = `https://openlibrary.org/search.json?q=${searchText}`;
     fetch(url)
       .then((res) => res.json())
-      .then((data) => displaySearchResult(data.docs));
+      .then((data) => displaySearchResult(data));
   }
 };
 
 const displaySearchResult = (books) => {
-  for (const book of books) {
-    // console.log(book);
-    const searchResult = document.getElementById("search-result");
-    searchResult.textContent = "";
-    if (books.length === 0) {
-      //show no result found here
-    }
-    books.forEach((book) => {
-        console.log(book);
+  if (books.docs.length === 0) {
+    let error = document.getElementById("error-message");
+    error.classList.add(
+      "alert",
+      "alert-danger",
+      "text-center",
+      "fs-5",
+      "w-25",
+      "mx-auto"
+    );
+    error.innerHTML = "No Result Found";
+  } else {
+    let item = books.docs.slice(0, 26);
+    let searchResult = document.getElementById("search-result");
+    let totalResult = document.getElementById("total-result");
+    searchResult.innerHTML = "";
+    item.forEach(book => {
       const div = document.createElement("div");
       div.classList.add("col");
       div.innerHTML = `
@@ -40,10 +54,7 @@ const displaySearchResult = (books) => {
         </div>
         `;
       searchResult.appendChild(div);
-    });
+     });
+     totalResult.innerHTML = `Show ${item.length} items from ${books.numFound} results`;
   }
-};
-//cover_i
-//
-//publisher
-//publish_date
+}
