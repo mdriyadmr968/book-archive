@@ -1,4 +1,3 @@
-
 /* styles for body  */
 body {
   background-color: #eee;
@@ -6,7 +5,7 @@ body {
 }
 
 .height {
-  height:200px;
+  height: 200px;
 }
 /* styles for search bar */
 .search {
@@ -40,4 +39,11 @@ body {
   background: blue;
 }
 
-/* styles for .............. */
+/* styles for  image*/
+img {
+  width: 200px;
+  height: 300px;
+}
+div {
+    margin-bottom: 10px;
+}
