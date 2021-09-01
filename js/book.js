@@ -9,7 +9,7 @@ const searchBook = () => {
   if (searchText == "") {
     //code for if here
   } else {
-    const url = `http://openlibrary.org/search.json?q=javascript`;
+    const url = `http://openlibrary.org/search.json?q=${searchText}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => displaySearchResult(data.docs));
